@@ -31,8 +31,22 @@ class DetailViewController: UIViewController {
         self.symbol.text = "Symbol: \(selectedObject.symbol)"
         self.number.text = "Number: \(selectedObject.number)"
         self.weight.text = "Weight: \(selectedObject.weight)"
-        self.boiling.text = "Boiling Point: \(selectedObject.boiling)"
-        self.melting.text = "Melting Point: \(selectedObject.melting)"
+        
+        if let boiling = selectedObject.boiling {
+            self.boiling.text = "Boiling Point: \(boiling)"
+        }
+        else {
+            self.boiling.text = "Boiling Point N/A"
+        }
+        
+        if let melting = selectedObject.melting {
+            self.melting.text = "Melting Point: \(melting)"
+        }
+        else {
+            self.melting.text = "Meltiing Point: N/A"
+        }
+    
+        
 
         APIRequestManager.manager.getData(endPoint: "https://s3.amazonaws.com/ac3.2-elements/\(selectedObject.symbol).png") { (data: Data?) in
             if let validData = data,

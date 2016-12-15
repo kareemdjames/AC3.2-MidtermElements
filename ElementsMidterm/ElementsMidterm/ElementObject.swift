@@ -14,10 +14,10 @@ class ElementObject {
     let weight: Double
     let name: String
     let symbol: String
-    let melting: Int
-    let boiling: Int
+    let melting: Int?
+    let boiling: Int?
     
-    init(number: Int, weight: Double, name: String, symbol: String, melting: Int, boiling: Int) {
+    init(number: Int, weight: Double, name: String, symbol: String, melting: Int?, boiling: Int?) {
         
         self.number = number
         self.weight = weight
@@ -33,12 +33,12 @@ class ElementObject {
         guard let number = dict["number"] as? Int,
             let weight = dict["weight"] as? Double,
             let name = dict["name"] as? String,
-            let symbol = dict["symbol"] as? String,
-            let melting = dict["melting_c"] as? Int,
-            let boiling = dict["boiling_c"] as? Int else { return nil }
+            let symbol = dict["symbol"] as? String else { return nil }
+        
+        let melting = dict["melting_c"] as? Int ?? nil
+        let boiling = dict["boiling_c"] as? Int ?? nil
         
         self.init(number: number, weight: weight, name: name, symbol: symbol, melting: melting, boiling: boiling)
-        
     }
     
     static func object(from data: Data) -> [ElementObject]? {
